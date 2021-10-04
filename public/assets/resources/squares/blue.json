@@ -1,0 +1,21 @@
+{
+    "frames": {
+        "blue0.png": {
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 128,
+                "h": 128
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 128 },
+            "sourceSize": { "w": 128, "h": 128 }
+        }
+    },
+    "meta": {
+        "image": "blue.png",
+        "format": "RGBA8888",
+        "size": { "w": 128, "h": 128 }
+    }
+}

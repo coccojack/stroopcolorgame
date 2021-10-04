@@ -1,0 +1,21 @@
+{
+    "frames": {
+        "greenbar0.png": {
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 710,
+                "h": 50
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 710, "h": 50 },
+            "sourceSize": { "w": 710, "h": 50 }
+        }
+    },
+    "meta": {
+        "image": "greenbar.png",
+        "format": "RGBA8888",
+        "size": { "w": 710, "h": 50 }
+    }
+}
