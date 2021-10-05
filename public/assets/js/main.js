@@ -28,8 +28,7 @@ function onAssetsLoaded() {
                     score++;
                     updateScoreText();
                     if (playerLevel < 1.7) playerLevel += 0.05;
-                    if (playerInitialLevel >= 1.7 && playerLevel < 1.8) playerLevel += 0.025;
-                    console.log(playerLevel);
+                    if (playerLevel >= 1.7 && playerLevel < 3.5) playerLevel += 0.025;
                     newLevel(playerLevel);
                 })
             } else {
@@ -65,6 +64,7 @@ function onAssetsLoaded() {
     var randomFill, random_color, colorWord;
     //player's score
     var score = 0;
+    var isPlaying = false;
     const gameScore = new PIXI.Text('0', rainbowStyle);
     gameScore.anchor.set(0.5);
     gameScore.x = centerX;
@@ -99,18 +99,18 @@ function onAssetsLoaded() {
     const backButton = new PIXI.Text("BACK", buttonStyle);
     backButton.interactive = true;
     backButton.x = centerX - (backButton.width / 2);
-    backButton.y = centerY * 1.75;
+    backButton.y = centerY * 1.35;
     backButton.on('pointerdown', () => { showMenu(); });
     //setup for instructions
-    const instructions = new PIXI.Text('Choose the right color just us:\n -The font COLOR, if COLORED\n -The COLOR NAME if UNCOLORED', rainbowStyle);
+    const instructions = new PIXI.Text('Choose the right color according to the color\'s name that appears and ...\n\n...be aware of the Stroop Effect!', rainbowStyle);
     instructions.x = centerX;
     instructions.y = centerY * 0.25;
     instructions.anchor.set(0.5, 0);
     //setup for wiki
-    const wikiButton = new PIXI.Text("Learn more about the \nStroop Effect ~~>", linkStyle);
+    const wikiButton = new PIXI.Text("(Learn more ~>) ", linkStyle);
     wikiButton.anchor.set(0.5);
-    wikiButton.x = centerX;
-    wikiButton.y = centerY * 1.3;
+    wikiButton.x = centerX + wikiButton.width / 2;
+    wikiButton.y = centerY;
     wikiButton.interactive = true;
     wikiButton.on('pointerdown', () => { window.open("https://en.wikipedia.org/wiki/Stroop_effect"); })
 
@@ -142,24 +142,38 @@ function onAssetsLoaded() {
     redbarSprite.scale.set(0.5);
 
     var redbarInitialW = redbarSprite.width;
-    var playerInitialLevel = 1.3;
-    var playerLevel = playerInitialLevel;
+    var playerInitialLevel, playerLevel;
+
+    //bar logic
+    app.ticker.add(function(delta) {
+        if (isPlaying) {
+            if (redbarSprite.width + delta * playerLevel >= redbarInitialW) {
+                redbarSprite.width = 0;
+                gameOver();
+            } else
+                redbarSprite.width += delta * playerLevel;
+        }
+    });
+
 
     // New level
-    function newLevel(leveln) {
+    function newLevel() {
         app.stage.removeChildren();
-        //choose a random color to fill randomly the word        
-        randomFill = _.random(colors.length - 1);
-        gameWordStyle.fill = colors[randomFill].code.toString();
+
         //choose the color the player has to select
-        random_color = _.random(colors.length - 1);
-        if (_.random(100) <= 50) {
-            //the word will be colored
-            colorWord = new PIXI.Text(colors[random_color].color.toUpperCase(), gameWordStyle);
-        } else {
-            //the word will be uncolored
+        var random_color = _.random(colors.length - 1);
+
+        //choose a random color to fill randomly the word        
+        var randomFill = _.random(colors.length - 1);
+        //the word will be the same color of the color name for 5 levels, then randomly colored
+        if (score >= 3 && score < 8) gameWordStyle.fill = colors[random_color].code.toString();
+        else gameWordStyle.fill = colors[randomFill].code.toString();
+
+        if (score >= 0 && score < 3) //the word will be uncolored for the first 3 levels
             colorWord = new PIXI.Text(colors[random_color].color.toUpperCase(), gameWordStyleWhite);
-        }
+        else
+            colorWord = new PIXI.Text(colors[random_color].color.toUpperCase(), gameWordStyle);
+
         colorWord.x = centerX;
         colorWord.y = centerY * 0.2;
         colorWord.anchor.set(0.5);
@@ -167,10 +181,6 @@ function onAssetsLoaded() {
 
         positions = generateGridArray(app.renderer.width, app.renderer.height);
         sprites = buildSprites(colors[random_color].color);
-
-
-
-
 
         //Draw squares
         for (var i = 0; i < sprites.length; i++) {
@@ -182,11 +192,6 @@ function onAssetsLoaded() {
         app.stage.addChild(greenbarSprite);
         app.stage.addChild(redbarSprite);
 
-        app.ticker.add(function(delta) {
-            if (redbarSprite.width + delta >= redbarInitialW) redbarSprite.width = redbarInitialW;
-            else
-                redbarSprite.width += delta * leveln * 0.2;
-        });
         // Move some sprites
         /*
         app.ticker.add(function(delta) {
@@ -203,6 +208,7 @@ function onAssetsLoaded() {
 
     function showMenu() {
         app.stage.removeChildren();
+        stars(app);
         app.stage.addChild(gameTitle);
         app.stage.addChild(playButton);
         app.stage.addChild(instructionButton);
@@ -217,7 +223,9 @@ function onAssetsLoaded() {
 
     function newGame() {
         score = 0;
+        playerInitialLevel = 1.4;
         playerLevel = playerInitialLevel;
+        isPlaying = true;
         updateScoreText();
         newLevel(playerLevel);
     }
@@ -227,24 +235,11 @@ function onAssetsLoaded() {
     }
 
     function gameOver() {
+        isPlaying = false;
         app.stage.removeChildren();
         app.stage.addChild(gameOverText);
         app.stage.addChild(gameScore);
         setTimeout(showMenu, 3000);
-
-        /*
-        var richText = new PIXI.Text(_.sample(['BRAVO!', 'Great.', 'SUPER!', 'You found it!', 'Amazing!', 'Voilà!', 'AWESOME!']), normalStyle);
-        richText.anchor.set(0.5);
-        richText.x = app.renderer.width / 2;
-        richText.y = app.renderer.height / 2;
-        /*
-        //disableinteraction and show message
-        /*
-        for (var i = 0; i < sprites.length; i++) {
-            sprites[i].interactive = false;
-        }
-        app.stage.addChild(richText);
-        setTimeout(newLevel, 500);*/
     }
 
     //start the game
@@ -252,5 +247,76 @@ function onAssetsLoaded() {
 }
 
 
-//TODO game over quando la barra finisce->problema: il ticker continua a girare a vuoto e da problemi a iniziare una nuova partita
-//suggerimenti nel vecchio progetto??
+function stars(app) {
+    // Get the texture for rope.
+    let starTexture = PIXI.Texture.from(spritesData[_.random(spritesData.length - 1)].frames[0]);
+
+    const starAmount = 1000;
+    let cameraZ = 0;
+    const fov = 20;
+    const baseSpeed = 0.025;
+    let speed = 0;
+    let warpSpeed = 0;
+    const starStretch = 5;
+    const starBaseSize = 0.05;
+
+
+    // Create the stars
+    const stars = [];
+    for (let i = 0; i < starAmount; i++) {
+        const star = {
+            sprite: new PIXI.Sprite(starTexture),
+            z: 0,
+            x: 0,
+            y: 0,
+        };
+        star.sprite.anchor.x = 0.5;
+        star.sprite.anchor.y = 0.7;
+        randomizeStar(star, true);
+        app.stage.addChild(star.sprite);
+        stars.push(star);
+        starTexture = PIXI.Texture.from(spritesData[_.random(spritesData.length - 1)].frames[0]);
+    }
+
+    function randomizeStar(star, initial) {
+        star.z = initial ? Math.random() * 2000 : cameraZ + Math.random() * 1000 + 2000;
+
+        // Calculate star positions with radial random coordinate so no star hits the camera.
+        const deg = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 50 + 1;
+        star.x = Math.cos(deg) * distance;
+        star.y = Math.sin(deg) * distance;
+    }
+
+    // Change flight speed every 5 seconds
+    setInterval(() => {
+        warpSpeed = warpSpeed > 0 ? 0 : 1;
+    }, 5000);
+
+    // Listen for animate update
+    app.ticker.add((delta) => {
+        // Simple easing. This should be changed to proper easing function when used for real.
+        speed += (warpSpeed - speed) / 20;
+        cameraZ += delta * 10 * (speed + baseSpeed);
+        for (let i = 0; i < starAmount; i++) {
+            const star = stars[i];
+            if (star.z < cameraZ) randomizeStar(star);
+
+            // Map star 3d position to 2d with really simple projection
+            const z = star.z - cameraZ;
+            star.sprite.x = star.x * (fov / z) * app.renderer.screen.width + app.renderer.screen.width / 2;
+            star.sprite.y = star.y * (fov / z) * app.renderer.screen.width + app.renderer.screen.height / 2;
+
+            // Calculate star scale & rotation.
+            const dxCenter = star.sprite.x - app.renderer.screen.width / 2;
+            const dyCenter = star.sprite.y - app.renderer.screen.height / 2;
+            const distanceCenter = Math.sqrt(dxCenter * dxCenter + dyCenter * dyCenter);
+            const distanceScale = Math.max(0, (2000 - z) / 2000);
+            star.sprite.scale.x = distanceScale * starBaseSize;
+            // Star is looking towards center so that y axis is towards center.
+            // Scale the star depending on how fast we are moving, what the stretchfactor is and depending on how far away it is from the center.
+            star.sprite.scale.y = distanceScale * starBaseSize + distanceScale * speed * starStretch * distanceCenter / app.renderer.screen.width;
+            star.sprite.rotation = Math.atan2(dyCenter, dxCenter) + Math.PI / 2;
+        }
+    });
+}
