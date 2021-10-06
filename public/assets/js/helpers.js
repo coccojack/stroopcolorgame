@@ -53,7 +53,7 @@ function generateGridArray(canvasW, canvasH) {
     return gridArray;
 }
 
-function floatVertically(object, initialY, delta, tilt, direction) {
+function floatVertically(object, initialY, delta, tilt, direction, velocity) {
     if (object.y > initialY + tilt) {
         if (direction.y > 0)
             direction.y = -direction.y;
@@ -62,5 +62,5 @@ function floatVertically(object, initialY, delta, tilt, direction) {
         if (direction.y < 0)
             direction.y = -direction.y;
     }
-    object.y += 0.5 * delta * direction.y;
+    object.y += velocity * delta * direction.y;
 }

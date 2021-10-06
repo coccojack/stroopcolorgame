@@ -56,7 +56,7 @@ function onAssetsLoaded() {
 
     // Init
     //canvas options
-    var app = new PIXI.Application(window.innerWidth, window.innerHeight, { backgroundColor: 0xeeeeee });
+    var app = new PIXI.Application(window.innerWidth, window.innerHeight, { backgroundColor: 0x111111 });
     var centerX = app.renderer.width / 2;
     var centerY = app.renderer.height / 2;
     //squares positions
@@ -83,7 +83,7 @@ function onAssetsLoaded() {
     var direction = { 'x': 1, 'y': 1 }
     app.ticker.add((delta) => {
         //passing direction by reference ( by using object)
-        floatVertically(gameTitle, titleInitialY, delta, 25, direction);
+        floatVertically(gameTitle, titleInitialY, delta, 5, direction, 0.25);
     });
     //setup for play button
     const playButton = new PIXI.Text("PLAY", buttonStyle);
@@ -104,12 +104,12 @@ function onAssetsLoaded() {
     backButton.y = centerY * 1.35;
     backButton.on('pointerdown', () => { showMenu(); });
     //setup for instructions
-    const instructions = new PIXI.Text('Choose the right color according to the color\'s name that appears and ...\n\n...be aware of the Stroop Effect!', rainbowStyle);
+    const instructions = new PIXI.Text('Choose the right color according to the color\'s name that appears and... be aware of the Stroop Effect!', rainbowStyle);
     instructions.x = centerX;
     instructions.y = centerY * 0.25;
     instructions.anchor.set(0.5, 0);
     //setup for wiki
-    const wikiButton = new PIXI.Text("(Learn more ~>) ", linkStyle);
+    const wikiButton = new PIXI.Text("(Learn more >>) ", linkStyle);
     wikiButton.anchor.set(0.5);
     wikiButton.x = centerX + wikiButton.width / 2;
     wikiButton.y = centerY;
@@ -160,6 +160,7 @@ function onAssetsLoaded() {
     app.ticker.add(function(delta) {
         for (i in sprites) {
             moveTo(delta * 0.1, sprites[i], randomPos[i]);
+            rotateTo(delta * 0.1, sprites[i], Math.PI * 256);
         }
     });
 
@@ -230,6 +231,10 @@ function onAssetsLoaded() {
         sprite.y = lerp(sprite.y, destination.y, delta);
     }
 
+    function rotateTo(delta, sprite, radians) {
+        sprite.rotation = lerp(sprite.rotation, radians, delta * 4);
+    }
+
     function showMenu() {
         app.stage.removeChildren();
         stars(app);
@@ -249,8 +254,9 @@ function onAssetsLoaded() {
         score = 0;
         gameScore.x = centerX;
         gameScore.y = centerY * 1.8;
-        //playerInitialLevel = 1.4;
-        playerInitialLevel = 0.1;
+        playerInitialLevel = 1.4;
+        //devmode
+        //playerInitialLevel = 0.1;
         playerLevel = playerInitialLevel;
         isPlaying = true;
         updateScoreText();

@@ -1,6 +1,6 @@
 var normalStyle = new PIXI.TextStyle({
     fontSize: 48,
-    fontWeight: 'bold',
+    fontWeight: 'Gluten',
     fill: ['#FFFFFF', '#EEEEEE'], // gradient
     stroke: '#000000',
     strokeThickness: 5,
@@ -12,7 +12,7 @@ var normalStyle = new PIXI.TextStyle({
 });
 
 var rainbowStyle = new PIXI.TextStyle({
-    fontFamily: 'Arial',
+    fontFamily: 'Gluten',
     fontSize: 36,
     fontWeight: 'bold',
     fill: ['#8648A3', '#25AEE4', '#53DD3B', '#FFEB11', '#FF7B20', '#FE1416'], // rainbow gradient
@@ -29,7 +29,7 @@ var rainbowStyle = new PIXI.TextStyle({
 });
 
 var buttonStyle = new PIXI.TextStyle({
-    fontFamily: 'Arial',
+    fontFamily: 'Gluten',
     fontSize: 36,
     stroke: 'black',
     strokeThickness: 20,
@@ -42,7 +42,7 @@ var buttonStyle = new PIXI.TextStyle({
 });
 
 var gameWordStyle = new PIXI.TextStyle({
-    fontFamily: 'Arial',
+    fontFamily: 'Gluten',
     fontSize: 40,
     stroke: 'black',
     strokeThickness: 20,
@@ -55,7 +55,7 @@ var gameWordStyle = new PIXI.TextStyle({
 });
 
 var gameWordStyleWhite = new PIXI.TextStyle({
-    fontFamily: 'Arial',
+    fontFamily: 'Gluten',
     fontSize: 40,
     stroke: 'black',
     strokeThickness: 20,
@@ -68,7 +68,7 @@ var gameWordStyleWhite = new PIXI.TextStyle({
 });
 
 var linkStyle = new PIXI.TextStyle({
-    fontFamily: 'Arial',
+    fontFamily: 'Gluten',
     fontSize: 30,
     stroke: 'black',
     strokeThickness: 8,
