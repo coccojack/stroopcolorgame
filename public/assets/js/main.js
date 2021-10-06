@@ -76,7 +76,7 @@ function onAssetsLoaded() {
     gameOverText.x = centerX - (gameOverText.width / 2);
     gameOverText.y = centerY * 0.8;
     //setup for title
-    const gameTitle = new PIXI.Text('Stroop Color Game', rainbowStyle);
+    const gameTitle = new PIXI.Text('STROOP COLOR GAME', rainbowStyle);
     var titleInitialX = gameTitle.x = centerX - (gameTitle.width / 2);
     var titleInitialY = gameTitle.y = centerY * 0.2;
     //titleanimation (initialX not used but stored, may be useful)  
@@ -167,7 +167,7 @@ function onAssetsLoaded() {
     // New level
     function newLevel() {
         app.stage.removeChildren();
-
+        stars(app);
         //choose the color the player has to select
         var random_color = _.random(colors.length - 1);
 
@@ -245,6 +245,7 @@ function onAssetsLoaded() {
 
     function showInstructions() {
         app.stage.removeChildren();
+        stars(app);
         app.stage.addChild(instructions);
         app.stage.addChild(wikiButton);
         app.stage.addChild(backButton);
@@ -270,6 +271,7 @@ function onAssetsLoaded() {
     function gameOver() {
         isPlaying = false;
         app.stage.removeChildren();
+        stars(app);
         app.stage.addChild(gameOverText);
         gameScore.x = centerX;
         gameScore.y = centerY * 1.2;
