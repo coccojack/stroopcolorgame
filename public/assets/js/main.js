@@ -39,6 +39,13 @@ function onAssetsLoaded() {
         return sprites;
     }
 
+    //telegram variables
+    var url = new URL(location.href);
+    var playerid = url.searchParams.get("id");
+    //url where is hosted server (eventual ngrok url to http local port if hosted locally)
+    //const gamehosturl = "http://...";
+    const gamehosturl = "http://127.0.0.1:8888";
+
     // Init
     //canvas options
     var app = new PIXI.Application((window.innerWidth < 900) ? 900 : window.innerWidth, window.innerHeight, { backgroundColor: 0x111111 });
@@ -247,6 +254,7 @@ function onAssetsLoaded() {
     }
 
     function gameOver() {
+        setHighScore(score)
         isPlaying = false;
         app.stage.removeChildren();
         stars(app);
@@ -257,6 +265,15 @@ function onAssetsLoaded() {
         setTimeout(showMenu, 3000);
     }
 
+    //telegram
+    function setHighScore(score) {
+        // Submit highscore to Telegram
+        var xmlhttp = new XMLHttpRequest();
+        var url = gamehosturl + "/highscore/" + score +
+            "?id=" + playerid;
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+    }
     //start the game
     showMenu();
 }
