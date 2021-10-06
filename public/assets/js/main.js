@@ -13,11 +13,11 @@ function onAssetsLoaded() {
 
 
     function buildSprites(correctColor) {
-        var sprites = [];
+        sprites = [];
         var sprite;
         //12 il numero di celle definite in positions
         //ne prendo 6 a caso e spawno i sei quadrati di colori differenti
-        var randomPos = _.sample(positions, 6);
+        randomPos = _.sample(positions, 6);
         for (var i = 0; i < randomPos.length; i++) {
             sprite = spriteFromData(spritesData[i]);
             sprite.x = randomPos[i].x;
@@ -61,6 +61,8 @@ function onAssetsLoaded() {
     var centerY = app.renderer.height / 2;
     //squares positions
     var positions = [];
+    var randomPos;
+    var sprites;
     var randomFill, random_color, colorWord;
     //player's score
     var score = 0;
@@ -72,7 +74,7 @@ function onAssetsLoaded() {
     //gameovertext
     const gameOverText = new PIXI.Text('GAME OVER', rainbowStyle);
     gameOverText.x = centerX - (gameOverText.width / 2);
-    gameOverText.y = centerY;
+    gameOverText.y = centerY * 0.8;
     //setup for title
     const gameTitle = new PIXI.Text('Stroop Color Game', rainbowStyle);
     var titleInitialX = gameTitle.x = centerX - (gameTitle.width / 2);
@@ -155,6 +157,11 @@ function onAssetsLoaded() {
         }
     });
 
+    app.ticker.add(function(delta) {
+        for (i in sprites) {
+            moveTo(delta * 0.1, sprites[i], randomPos[i]);
+        }
+    });
 
     // New level
     function newLevel() {
@@ -187,6 +194,8 @@ function onAssetsLoaded() {
             app.stage.addChild(sprites[i]);
         }
 
+        moveSpritesToTheMiddle(app);
+
         //draw bars
         redbarSprite.width = 0;
         app.stage.addChild(greenbarSprite);
@@ -206,6 +215,21 @@ function onAssetsLoaded() {
         app.stage.addChild(gameScore);
     }
 
+
+    function moveSpritesToTheMiddle(app) {
+        for (i in sprites) {
+            sprites[i].x = centerX;
+            sprites[i].y = centerY;
+        }
+    }
+
+    lerp = (a, b, c) => a * (1 - c) + b * c;
+
+    function moveTo(delta, sprite, destination) {
+        sprite.x = lerp(sprite.x, destination.x, delta);
+        sprite.y = lerp(sprite.y, destination.y, delta);
+    }
+
     function showMenu() {
         app.stage.removeChildren();
         stars(app);
@@ -223,7 +247,10 @@ function onAssetsLoaded() {
 
     function newGame() {
         score = 0;
-        playerInitialLevel = 1.4;
+        gameScore.x = centerX;
+        gameScore.y = centerY * 1.8;
+        //playerInitialLevel = 1.4;
+        playerInitialLevel = 0.1;
         playerLevel = playerInitialLevel;
         isPlaying = true;
         updateScoreText();
@@ -238,6 +265,8 @@ function onAssetsLoaded() {
         isPlaying = false;
         app.stage.removeChildren();
         app.stage.addChild(gameOverText);
+        gameScore.x = centerX;
+        gameScore.y = centerY * 1.2;
         app.stage.addChild(gameScore);
         setTimeout(showMenu, 3000);
     }
@@ -245,6 +274,7 @@ function onAssetsLoaded() {
     //start the game
     showMenu();
 }
+
 
 
 function stars(app) {
