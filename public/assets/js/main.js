@@ -111,7 +111,7 @@ function onAssetsLoaded() {
     //setup for wiki
     const wikiButton = new PIXI.Text("(Learn more >>) ", linkStyle);
     wikiButton.anchor.set(0.5);
-    wikiButton.x = centerX + wikiButton.width / 2;
+    wikiButton.x = centerX * 1.3;
     wikiButton.y = centerY * 1.2;
     wikiButton.interactive = true;
     wikiButton.on('pointerdown', () => { window.open("https://en.wikipedia.org/wiki/Stroop_effect"); })
@@ -274,7 +274,7 @@ function onAssetsLoaded() {
         stars(app);
         app.stage.addChild(gameOverText);
         gameScore.x = centerX;
-        gameScore.y = centerY * 1.4;
+        gameScore.y = centerY * 1.1;
         app.stage.addChild(gameScore);
         setTimeout(showMenu, 3000);
     }
