@@ -11,12 +11,10 @@ function onAssetsLoaded() {
         return sprite;
     }
 
-
     function buildSprites(correctColor) {
         sprites = [];
         var sprite;
-        //12 il numero di celle definite in positions
-        //ne prendo 6 a caso e spawno i sei quadrati di colori differenti
+        //random select 6 out of 12 positions of the matrix
         randomPos = _.sample(positions, 6);
         for (var i = 0; i < randomPos.length; i++) {
             sprite = spriteFromData(spritesData[i]);
@@ -38,21 +36,8 @@ function onAssetsLoaded() {
             }
             sprites.push(sprite);
         }
-
-        //the correct sprite
-        /*
-        sprite = spriteFromData({ animation: [PIXI.Texture.fromFrame(red.frames[0])] });
-        sprite.x = app.renderer.width / 2;
-        sprite.y = app.renderer.height * 0.9;
-        sprite.interactive = true;
-        sprite.buttonMode = true;
-        sprite.on('pointerdown', victory);
-        sprites.push(sprite);
-        */
         return sprites;
     }
-
-
 
     // Init
     //canvas options
@@ -62,11 +47,15 @@ function onAssetsLoaded() {
     //squares positions
     var positions = [];
     var randomPos;
+    //square sprites
     var sprites;
+    //game logic variables
     var randomFill, random_color, colorWord;
     //player's score
     var score = 0;
+    //boolean for bar ticker
     var isPlaying = false;
+    //player's score text in numbers
     const gameScore = new PIXI.Text('0', scoreStyle);
     gameScore.anchor.set(0.5);
     gameScore.x = centerX;
@@ -118,7 +107,7 @@ function onAssetsLoaded() {
 
 
 
-    //place the canvas in the main DOM
+    //placing the canvas in the main DOM
     document.getElementById('main').appendChild(app.view);
 
     //loadanimations
@@ -157,6 +146,7 @@ function onAssetsLoaded() {
         }
     });
 
+    //linear interpolations from center of the canvas to the positions, rotating
     app.ticker.add(function(delta) {
         for (i in sprites) {
             moveTo(delta * 0.1, sprites[i], randomPos[i]);
@@ -201,22 +191,10 @@ function onAssetsLoaded() {
         redbarSprite.width = 0;
         app.stage.addChild(greenbarSprite);
         app.stage.addChild(redbarSprite);
-
-        // Move some sprites
-        /*
-        app.ticker.add(function(delta) {
-            for (var i = 0; i < sprites.length; i++) {
-                var sprite = sprites[i];
-                if (sprite.vx) {
-                    sprite.x += sprite.vx * delta;
-                }
-            }
-        });*/
-
         app.stage.addChild(gameScore);
     }
 
-
+    //called each new level
     function moveSpritesToTheMiddle(app) {
         for (i in sprites) {
             sprites[i].x = centerX;
@@ -224,6 +202,7 @@ function onAssetsLoaded() {
         }
     }
 
+    //called to linearly interpolate translations and rotations
     lerp = (a, b, c) => a * (1 - c) + b * c;
 
     function moveTo(delta, sprite, destination) {
@@ -237,7 +216,7 @@ function onAssetsLoaded() {
 
     function showMenu() {
         app.stage.removeChildren();
-        stars(app);
+        stars(app, true);
         app.stage.addChild(gameTitle);
         app.stage.addChild(playButton);
         app.stage.addChild(instructionButton);
@@ -255,9 +234,8 @@ function onAssetsLoaded() {
         score = 0;
         gameScore.x = centerX;
         gameScore.y = centerY * 1.8;
-        playerInitialLevel = 1.4;
-        //devmode
-        //playerInitialLevel = 0.1;
+        //playerInitialLevel = 1.4;
+        playerInitialLevel = 0.1; //devmode
         playerLevel = playerInitialLevel;
         isPlaying = true;
         updateScoreText();
@@ -285,7 +263,7 @@ function onAssetsLoaded() {
 
 
 
-function stars(app) {
+function stars(app, warp) {
     // Get the texture for rope.
     let starTexture = PIXI.Texture.from(spritesData[_.random(spritesData.length - 1)].frames[0]);
 
@@ -326,10 +304,12 @@ function stars(app) {
         star.y = Math.sin(deg) * distance;
     }
 
-    // Change flight speed every 5 seconds
-    setInterval(() => {
-        warpSpeed = warpSpeed > 0 ? 0 : 1;
-    }, 5000);
+    // Change flight speed every 5 seconds, if warp is true
+    if (warp) {
+        setInterval(() => {
+            warpSpeed = warpSpeed > 0 ? 0 : 1;
+        }, 5000);
+    }
 
     // Listen for animate update
     app.ticker.add((delta) => {
