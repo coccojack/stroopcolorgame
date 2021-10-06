@@ -56,7 +56,7 @@ function onAssetsLoaded() {
 
     // Init
     //canvas options
-    var app = new PIXI.Application(window.innerWidth, window.innerHeight, { backgroundColor: 0x111111 });
+    var app = new PIXI.Application((window.innerWidth < 900) ? 900 : window.innerWidth, window.innerHeight, { backgroundColor: 0x111111 });
     var centerX = app.renderer.width / 2;
     var centerY = app.renderer.height / 2;
     //squares positions
