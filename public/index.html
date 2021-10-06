@@ -12,23 +12,26 @@
     <script src="assets/js/colors.js"></script>
     <script src="assets/js/helpers.js"></script>
     <script src="assets/js/main.js"></script>
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Gluten' type="text/css">
 </head>
 
 <body>
     <div id="main">
     </div>
     <script>
-        PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-        PIXI.loader
-            .add('assets/resources/squares/red.json')
-            .add('assets/resources/squares/orange.json')
-            .add('assets/resources/squares/yellow.json')
-            .add('assets/resources/squares/green.json')
-            .add('assets/resources/squares/blue.json')
-            .add('assets/resources/squares/violet.json')
-            .add('assets/resources/timebar/greenbar.json')
-            .add('assets/resources/timebar/redbar.json')
-            .load(onAssetsLoaded);
+        document.fonts.ready.then(() => {
+            PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+            PIXI.loader
+                .add('assets/resources/squares/red.json')
+                .add('assets/resources/squares/orange.json')
+                .add('assets/resources/squares/yellow.json')
+                .add('assets/resources/squares/green.json')
+                .add('assets/resources/squares/blue.json')
+                .add('assets/resources/squares/violet.json')
+                .add('assets/resources/timebar/greenbar.json')
+                .add('assets/resources/timebar/redbar.json')
+                .load(onAssetsLoaded);
+        })
     </script>
 </body>
 

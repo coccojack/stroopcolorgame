@@ -1,3 +1,8 @@
+/*@font-face {
+    font-family: 'Gluten' !important;
+    src: local('../fonts/Gluten.ttf');
+}*/
+
 @import url('https://fonts.googleapis.com/css?family=Gluten');
 div#main {
     width: 100%;

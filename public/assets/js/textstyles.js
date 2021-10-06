@@ -1,6 +1,7 @@
 var normalStyle = new PIXI.TextStyle({
     fontSize: 100,
-    fontWeight: 'Gluten',
+    fontFamily: 'Gluten',
+    fontWeight: 'bold',
     fill: ['#FFFFFF', '#EEEEEE'], // gradient
     stroke: '#000000',
     strokeThickness: 5,
@@ -132,5 +133,3 @@ var linkStyle = new PIXI.TextStyle({
     letterSpacing: 3,
     align: 'right'
 });
-
-//TODO: fix font sizes according to game width
