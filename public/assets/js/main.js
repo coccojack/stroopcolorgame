@@ -67,16 +67,16 @@ function onAssetsLoaded() {
     //player's score
     var score = 0;
     var isPlaying = false;
-    const gameScore = new PIXI.Text('0', rainbowStyle);
+    const gameScore = new PIXI.Text('0', scoreStyle);
     gameScore.anchor.set(0.5);
     gameScore.x = centerX;
     gameScore.y = centerY * 1.8;
     //gameovertext
     const gameOverText = new PIXI.Text('GAME OVER', rainbowStyle);
     gameOverText.x = centerX - (gameOverText.width / 2);
-    gameOverText.y = centerY * 0.8;
+    gameOverText.y = centerY * 0.5;
     //setup for title
-    const gameTitle = new PIXI.Text('STROOP COLOR GAME', rainbowStyle);
+    const gameTitle = new PIXI.Text('STROOP COLOR GAME', titleStyle);
     var titleInitialX = gameTitle.x = centerX - (gameTitle.width / 2);
     var titleInitialY = gameTitle.y = centerY * 0.2;
     //titleanimation (initialX not used but stored, may be useful)  
@@ -104,7 +104,7 @@ function onAssetsLoaded() {
     backButton.y = centerY * 1.35;
     backButton.on('pointerdown', () => { showMenu(); });
     //setup for instructions
-    const instructions = new PIXI.Text('Choose the right color according to the color\'s name that appears and... be aware of the Stroop Effect!', rainbowStyle);
+    const instructions = new PIXI.Text('Choose the right color according to the color\'s name that appears and... be aware of the Stroop Effect!', instructionStyle);
     instructions.x = centerX;
     instructions.y = centerY * 0.25;
     instructions.anchor.set(0.5, 0);
@@ -112,7 +112,7 @@ function onAssetsLoaded() {
     const wikiButton = new PIXI.Text("(Learn more >>) ", linkStyle);
     wikiButton.anchor.set(0.5);
     wikiButton.x = centerX + wikiButton.width / 2;
-    wikiButton.y = centerY;
+    wikiButton.y = centerY * 1.2;
     wikiButton.interactive = true;
     wikiButton.on('pointerdown', () => { window.open("https://en.wikipedia.org/wiki/Stroop_effect"); })
 
@@ -274,7 +274,7 @@ function onAssetsLoaded() {
         stars(app);
         app.stage.addChild(gameOverText);
         gameScore.x = centerX;
-        gameScore.y = centerY * 1.2;
+        gameScore.y = centerY * 1.4;
         app.stage.addChild(gameScore);
         setTimeout(showMenu, 3000);
     }
