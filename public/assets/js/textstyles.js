@@ -58,7 +58,7 @@ var instructionStyle = new PIXI.TextStyle({
     dropShadowAngle: Math.PI / 6,
     dropShadowDistance: 6,
     wordWrap: true,
-    wordWrapWidth: 700,
+    wordWrapWidth: 1000,
     lineJoin: 'round',
 });
 

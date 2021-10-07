@@ -20,6 +20,21 @@
             }
         });
     </script>
+    <script src="assets/resources/howler.js"></script>
+    <script>
+        var bgm = new Howl({
+            src: ['assets/resources/audio/bgm.mp3', 'assets/resources/audio/correct.wav', 'assets/resources/audio/wrong.wav'],
+            loop: true,
+            volume: 0.8
+        });
+        var correctSound = new Howl({
+            src: ['assets/resources/audio/correct.wav']
+        });
+        var wrongSound = new Howl({
+            src: ['assets/resources/audio/wrong.wav']
+        });
+        bgm.play();
+    </script>
 </head>
 
 <body>

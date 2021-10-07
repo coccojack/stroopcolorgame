@@ -64,3 +64,15 @@ function floatVertically(object, initialY, delta, tilt, direction, velocity) {
     }
     object.y += velocity * delta * direction.y;
 }
+
+function floatHorizontally(object, initialX, delta, tilt, direction, velocity) {
+    if (object.x > initialX + tilt) {
+        if (direction.x > 0)
+            direction.x = -direction.x;
+    }
+    if (object.x < initialX - tilt) {
+        if (direction.x < 0)
+            direction.x = -direction.x;
+    }
+    object.x += velocity * delta * direction.x;
+}

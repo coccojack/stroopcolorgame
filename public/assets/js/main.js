@@ -23,6 +23,7 @@ function onAssetsLoaded() {
             sprite.interactive = true;
             if (spritesData[i].color == correctColor) {
                 sprite.on('pointerdown', () => {
+                    correctSound.play();
                     score++;
                     updateScoreText();
                     if (playerLevel < 1.7) playerLevel += 0.05;
@@ -31,6 +32,7 @@ function onAssetsLoaded() {
                 })
             } else {
                 sprite.on('pointerdown', () => {
+                    wrongSound.play();
                     gameOver();
                 })
             }
@@ -85,19 +87,25 @@ function onAssetsLoaded() {
     const playButton = new PIXI.Text("PLAY", buttonStyle);
     playButton.interactive = true;
     playButton.x = centerX - (playButton.width / 2);
-    playButton.y = centerY;
+    playButton.y = centerY * 0.8;
     playButton.on('pointerdown', newGame);
     //setup for instructions button
     const instructionButton = new PIXI.Text("INSTRUCTIONS", buttonStyle);
     instructionButton.interactive = true;
     instructionButton.x = centerX - (instructionButton.width / 2);
-    instructionButton.y = centerY * 1.3;
+    instructionButton.y = centerY * 1;
     instructionButton.on('pointerdown', () => { showInstructions(); });
+    //setup for credits button
+    const creditsButton = new PIXI.Text("CREDITS", buttonStyle);
+    creditsButton.interactive = true;
+    creditsButton.x = centerX - (creditsButton.width / 2);
+    creditsButton.y = centerY * 1.4;
+    creditsButton.on('pointerdown', () => { showCredits(); });
     //setup for back button
     const backButton = new PIXI.Text("BACK", buttonStyle);
     backButton.interactive = true;
     backButton.x = centerX - (backButton.width / 2);
-    backButton.y = centerY * 1.35;
+    backButton.y = centerY * 1.5;
     backButton.on('pointerdown', () => { showMenu(); });
     //setup for instructions
     const instructions = new PIXI.Text('Choose the right color according to the color\'s name that appears and... be aware of the Stroop Effect!', instructionStyle);
@@ -106,13 +114,57 @@ function onAssetsLoaded() {
     instructions.anchor.set(0.5, 0);
     //setup for wiki
     const wikiButton = new PIXI.Text("(Learn more >>) ", linkStyle);
-    wikiButton.anchor.set(0.5);
-    wikiButton.x = centerX * 1.3;
-    wikiButton.y = centerY * 1.2;
+    wikiButton.x = centerX * 0.3;
+    wikiButton.y = centerY * 1.3;
     wikiButton.interactive = true;
     wikiButton.on('pointerdown', () => { window.open("https://en.wikipedia.org/wiki/Stroop_effect"); })
+        //setup for credits
+    const credits = new PIXI.Text('A game by coccojack\nGraphic API: Pixi\nAudio API: Howler\nSounds: opengameart', instructionStyle);
+    var creditsInitialX = credits.x = centerX;
+    credits.y = centerY * 0.25;
+    credits.anchor.set(0.5, 0);
+    var direction2 = { 'x': 1, 'y': 1 }
+    app.ticker.add((delta) => {
+        //passing direction by reference ( by using object)
+        floatHorizontally(credits, creditsInitialX, delta, 5, direction2, 0.25);
+    });
 
+    const linksref = new PIXI.Text(" credits >>", linkStyle);
+    linksref.x = centerX * 0.3;
+    linksref.y = centerY * 1.3;
+    const ogalink1 = new PIXI.Text("BGM", linkStyle);
+    ogalink1.x = centerX * 0.8;
+    ogalink1.y = centerY * 1.3;
+    ogalink1.interactive = true;
+    ogalink1.on('pointerdown', () => { window.open("https://opengameart.org/content/a-journey-awaits") });
+    const ogalink2 = new PIXI.Text("GUI", linkStyle)
+    ogalink2.x = centerX * 1.1;
+    ogalink2.y = centerY * 1.3;
+    ogalink2.interactive = true;
+    ogalink2.on('pointerdown', () => { window.open("https://opengameart.org/content/gui-sound-effects") });
 
+    const muteButton = new PIXI.Text(" <<Mute Music>>", linkStyle);
+    const unmuteButton = new PIXI.Text(" <<Unmute Music>>", linkStyle);
+    muteButton.x = centerX * 2 - muteButton.width;
+    muteButton.y = centerY * 2 - muteButton.height;
+    muteButton.interactive = true;
+    muteButton.on('pointerdown', stopBgm);
+    unmuteButton.x = -1000;
+    unmuteButton.y = centerY * 2 - unmuteButton.height;
+    unmuteButton.interactive = true;
+    unmuteButton.on('pointerdown', playBgm);
+
+    function playBgm() {
+        bgm.play();
+        unmuteButton.x = -1000;
+        muteButton.x = centerX * 2 - muteButton.width;
+    }
+
+    function stopBgm() {
+        bgm.stop();
+        muteButton.x = -1000;
+        unmuteButton.x = centerX * 2 - unmuteButton.width;
+    }
 
     //placing the canvas in the main DOM
     document.getElementById('main').appendChild(app.view);
@@ -199,6 +251,8 @@ function onAssetsLoaded() {
         app.stage.addChild(greenbarSprite);
         app.stage.addChild(redbarSprite);
         app.stage.addChild(gameScore);
+        app.stage.addChild(muteButton);
+        app.stage.addChild(unmuteButton);
     }
 
     //called each new level
@@ -227,6 +281,9 @@ function onAssetsLoaded() {
         app.stage.addChild(gameTitle);
         app.stage.addChild(playButton);
         app.stage.addChild(instructionButton);
+        app.stage.addChild(creditsButton);
+        app.stage.addChild(muteButton);
+        app.stage.addChild(unmuteButton);
     }
 
     function showInstructions() {
@@ -235,14 +292,29 @@ function onAssetsLoaded() {
         app.stage.addChild(instructions);
         app.stage.addChild(wikiButton);
         app.stage.addChild(backButton);
+        app.stage.addChild(muteButton);
+        app.stage.addChild(unmuteButton);
+    }
+
+
+    function showCredits() {
+        app.stage.removeChildren();
+        stars(app);
+        app.stage.addChild(credits);
+        app.stage.addChild(linksref);
+        app.stage.addChild(ogalink1);
+        app.stage.addChild(ogalink2);
+        app.stage.addChild(backButton);
+        app.stage.addChild(muteButton);
+        app.stage.addChild(unmuteButton);
     }
 
     function newGame() {
         score = 0;
         gameScore.x = centerX;
         gameScore.y = centerY * 1.8;
-        //playerInitialLevel = 1.4;
-        playerInitialLevel = 0.1; //devmode
+        playerInitialLevel = 1.4;
+        //playerInitialLevel = 0.1; //devmode
         playerLevel = playerInitialLevel;
         isPlaying = true;
         updateScoreText();
@@ -262,6 +334,8 @@ function onAssetsLoaded() {
         gameScore.x = centerX;
         gameScore.y = centerY * 1.1;
         app.stage.addChild(gameScore);
+        app.stage.addChild(muteButton);
+        app.stage.addChild(unmuteButton);
         setTimeout(showMenu, 3000);
     }
 
