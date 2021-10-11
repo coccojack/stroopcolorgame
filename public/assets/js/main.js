@@ -46,7 +46,7 @@ function onAssetsLoaded() {
     var playerid = url.searchParams.get("id");
     //url where is hosted server (eventual ngrok url to http local port if hosted locally)
     //const gamehosturl = "http://...";
-    const gamehosturl = "http://127.0.0.1:8888";
+    const gamehosturl = url.origin; //change according to the game url, if the node server is the same url leave 'url.origin'
 
     // Init
     //canvas options
@@ -326,7 +326,7 @@ function onAssetsLoaded() {
     }
 
     function gameOver() {
-        setHighScore(score)
+        if (score > 0) setHighScore(score)
         isPlaying = false;
         app.stage.removeChildren();
         stars(app);
