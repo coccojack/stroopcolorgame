@@ -6,9 +6,7 @@
 <h1>Host the game in your Telegram Bot</h1>
 <ul>
     <li>Create a bot and obtain the token from BotFather</li>
-    <li>Step 2</li>
-    <li>Step 3</li>
-    <li>Step 4</li>
-    <li>Step 5</li>
-    <li>Step 6</li>
+    <li>npm install</li>
+    <li>Configure .env file, editing telegram bot token, port number and game url</li>
+    <li>npm start</li>
 </ul>
