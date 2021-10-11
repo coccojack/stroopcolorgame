@@ -5,8 +5,8 @@
 <div><a href="https://en.wikipedia.org/wiki/Stroop_effect">Learn more about the Stroop Effect</a></div>
 <h1>Host the game in your Telegram Bot</h1>
 <ul>
-    <li>Create a bot and obtain the token from BotFather</li>
     <li>npm install</li>
-    <li>Configure .env file, editing telegram bot token, port number and game url</li>
+    <li>Edit .env.example file, editing telegram bot token, port number and game url</li>
+    <li>Rename file in .env</li>
     <li>npm start</li>
 </ul>
