@@ -30,7 +30,7 @@ var rainbowStyle = new PIXI.TextStyle({
 });
 var titleStyle = new PIXI.TextStyle({
     fontFamily: 'Gluten',
-    fontSize: 80,
+    fontSize: 30,
     fontWeight: 'bold',
     fill: ['#8648A3', '#25AEE4', '#53DD3B', '#FFEB11', '#FF7B20', '#FE1416'], // rainbow gradient
     stroke: 'black',
@@ -41,13 +41,13 @@ var titleStyle = new PIXI.TextStyle({
     dropShadowAngle: Math.PI / 6,
     dropShadowDistance: 6,
     wordWrap: true,
-    wordWrapWidth: 1000,
+    wordWrapWidth: 500,
     lineJoin: 'round',
 });
 
 var instructionStyle = new PIXI.TextStyle({
     fontFamily: 'Gluten',
-    fontSize: 60,
+    fontSize: 30,
     fontWeight: 'bold',
     fill: ['#8648A3', '#25AEE4', '#53DD3B', '#FFEB11', '#FF7B20', '#FE1416'], // rainbow gradient
     stroke: 'black',
@@ -58,13 +58,13 @@ var instructionStyle = new PIXI.TextStyle({
     dropShadowAngle: Math.PI / 6,
     dropShadowDistance: 6,
     wordWrap: true,
-    wordWrapWidth: 1000,
+    wordWrapWidth: 500,
     lineJoin: 'round',
 });
 
 var scoreStyle = new PIXI.TextStyle({
     fontFamily: 'Gluten',
-    fontSize: 100,
+    fontSize: 60,
     fontWeight: 'bold',
     fill: ['#8648A3', '#25AEE4', '#53DD3B', '#FFEB11', '#FF7B20', '#FE1416'], // rainbow gradient
     stroke: 'black',
@@ -81,7 +81,7 @@ var scoreStyle = new PIXI.TextStyle({
 
 var buttonStyle = new PIXI.TextStyle({
     fontFamily: 'Gluten',
-    fontSize: 70,
+    fontSize: 30,
     stroke: 'black',
     strokeThickness: 20,
     fill: 'white',
@@ -94,7 +94,7 @@ var buttonStyle = new PIXI.TextStyle({
 
 var gameWordStyle = new PIXI.TextStyle({
     fontFamily: 'Gluten',
-    fontSize: 100,
+    fontSize: 80,
     stroke: 'black',
     strokeThickness: 20,
     fill: '#FF7B20',
@@ -109,7 +109,7 @@ var gameWordStyle = new PIXI.TextStyle({
 
 var gameWordStyleWhite = new PIXI.TextStyle({
     fontFamily: 'Gluten',
-    fontSize: 100,
+    fontSize: 80,
     stroke: 'black',
     strokeThickness: 20,
     fill: 'white',
@@ -122,7 +122,7 @@ var gameWordStyleWhite = new PIXI.TextStyle({
 
 var linkStyle = new PIXI.TextStyle({
     fontFamily: 'Gluten',
-    fontSize: 40,
+    fontSize: 20,
     stroke: 'black',
     strokeThickness: 8,
     fill: 'white',

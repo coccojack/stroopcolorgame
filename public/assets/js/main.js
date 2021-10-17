@@ -50,7 +50,7 @@ function onAssetsLoaded() {
 
     // Init
     //canvas options
-    var app = new PIXI.Application((window.innerWidth < 900) ? 900 : window.innerWidth, window.innerHeight, { backgroundColor: 0x111111 });
+    var app = new PIXI.Application(window.innerWidth, window.innerHeight, { backgroundColor: 0x111111 });
     var centerX = app.renderer.width / 2;
     var centerY = app.renderer.height / 2;
     //squares positions
@@ -70,7 +70,7 @@ function onAssetsLoaded() {
     gameScore.x = centerX;
     gameScore.y = centerY * 1.8;
     //gameovertext
-    const gameOverText = new PIXI.Text('GAME OVER', rainbowStyle);
+    const gameOverText = new PIXI.Text('GAME OVER', titleStyle);
     gameOverText.x = centerX - (gameOverText.width / 2);
     gameOverText.y = centerY * 0.5;
     //setup for title
@@ -108,17 +108,18 @@ function onAssetsLoaded() {
     backButton.y = centerY * 1.5;
     backButton.on('pointerdown', () => { showMenu(); });
     //setup for instructions
-    const instructions = new PIXI.Text('Choose the right color according to the color\'s name that appears and... be aware of the Stroop Effect!', instructionStyle);
+    const instructions = new PIXI.Text('Choose the right\ncolor according to\nthe color\'s name\nthat appears and...\nbe aware of the\nStroop Effect!', instructionStyle);
     instructions.x = centerX;
     instructions.y = centerY * 0.25;
     instructions.anchor.set(0.5, 0);
     //setup for wiki
     const wikiButton = new PIXI.Text("(Learn more >>) ", linkStyle);
-    wikiButton.x = centerX * 0.3;
+    wikiButton.x = centerX;
     wikiButton.y = centerY * 1.3;
+    wikiButton.anchor.set(0.5, 0);
     wikiButton.interactive = true;
-    wikiButton.on('pointerdown', () => { window.open("https://en.wikipedia.org/wiki/Stroop_effect"); })
-        //setup for credits
+    wikiButton.on('pointerdown', () => { window.open("https://en.wikipedia.org/wiki/Stroop_effect"); });
+    //setup for credits
     const credits = new PIXI.Text('A game by coccojack\nGraphic API: Pixi\nAudio API: Howler\nSounds: opengameart', instructionStyle);
     var creditsInitialX = credits.x = centerX;
     credits.y = centerY * 0.25;
@@ -129,18 +130,21 @@ function onAssetsLoaded() {
         floatHorizontally(credits, creditsInitialX, delta, 5, direction2, 0.25);
     });
 
-    const linksref = new PIXI.Text(" credits >>", linkStyle);
-    linksref.x = centerX * 0.3;
-    linksref.y = centerY * 1.3;
+    const linksref = new PIXI.Text("<<links>>", linkStyle);
+    linksref.x = centerX * 1.5;
+    linksref.y = centerY * 1.1;
+    linksref.anchor.set(0.5, 0);
     const ogalink1 = new PIXI.Text("BGM", linkStyle);
-    ogalink1.x = centerX * 0.8;
-    ogalink1.y = centerY * 1.3;
+    ogalink1.x = centerX * 1.5;
+    ogalink1.y = centerY * 1.2;
+    ogalink1.anchor.set(0.5, 0);
     ogalink1.interactive = true;
     ogalink1.on('pointerdown', () => { window.open("https://opengameart.org/content/a-journey-awaits") });
     const ogalink2 = new PIXI.Text("GUI", linkStyle)
-    ogalink2.x = centerX * 1.1;
+    ogalink2.x = centerX * 1.5;
     ogalink2.y = centerY * 1.3;
     ogalink2.interactive = true;
+    ogalink2.anchor.set(0.5, 0);
     ogalink2.on('pointerdown', () => { window.open("https://opengameart.org/content/gui-sound-effects") });
 
     const muteButton = new PIXI.Text(" <<Mute Music>>", linkStyle);
