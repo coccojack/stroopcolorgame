@@ -4,24 +4,22 @@
 <div>The time to pick the color decreases each level, unleashing in the player the Stroop Effect.</div>
 <div><a href="https://en.wikipedia.org/wiki/Stroop_effect">Learn more about the Stroop Effect</a></div>
 <h1>About the project</h1>
-<div>This project is intended as a service for a Telegram's bot, which communication is made by using node.js server (via npm script)</div>
+<div>This project is intended as a service for a Telegram's bot, which communication is made by using node.js server (via npm script).</div>
+<div>The user can retry as many times he wants, the best record will appear in the telegram chat which the bot has served the game.</div>
 <h1>Requirements</h1>
 <ul>
-
-<li>Nodejs and npm installed on your device</li>
-<li>A Telegram bot configured for game hosting and inline queries</li>
+<li>Nodejs and npm installed on your device.</li>
+<li>A Telegram bot configured for game hosting and inline queries.</li>
 </ul>
 <h1>Technologies used:</h1>
 <ul>
     <li>Graphic: PIXI.js</li>
     <li>Audio: Howler.js</li>
     <li>Sound assets: opengameart</li>
-    <li>
     <ul>
         <li><a href="https://opengameart.org/content/a-journey-awaits">BGM</a></li>
         <li><a href="https://opengameart.org/content/gui-sound-effects">GUI SOUNDS</a></li>
     </ul>
-    </li>
 </ul>
 <h1>Host the game in your Telegram Bot</h1>
 <ul>
@@ -31,8 +29,7 @@
     <li>Rename file in .env</li>
     <li>npm start</li>
     <li>A message in the CLI will appear notifying that server is running</li>
-    <li>Open your telegram bot via telegram app and request the game</li>
-    <li>The user can retry as many times he wants, the best record will appear in the telegram chat which the bot has served the game</li>
+    <li>Open your telegram bot via telegram app and request the game or share the game link in any Telegram chat/group</li>
 </ul>
 <h1>About the author</h1>
 <div>I'm Giacomo Rotondo Cocco aka coccojack, student of University of Catania, and i made this project with love for the university subject 'WEB PROGRAMMING, DESIGN & USABILITY'</div>
