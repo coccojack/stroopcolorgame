@@ -23,13 +23,13 @@
 </ul>
 <h1>Host the game in your Telegram Bot</h1>
 <ul>
-    <li>Open project directory via CLI</li>
-    <li>npm install</li>
-    <li>Open via your favourite editor '.env.example' file, and edit telegram bot token, port number and game url</li>
-    <li>Rename file in .env</li>
-    <li>npm start</li>
-    <li>A message in the CLI will appear notifying that server is running</li>
-    <li>Open your telegram bot via telegram app and request the game or share the game link in any Telegram chat/group</li>
+    <li>Open project directory via CLI.</li>
+    <li>>>npm install</li>
+    <li>Open via your favourite editor '.env.example' file, and edit telegram bot token, port number and game url.</li>
+    <li>Rename '.env.example' in '.env'</li>
+    <li>>>npm start</li>
+    <li>A message in the CLI will appear notifying that server is running.</li>
+    <li>Open your telegram bot via telegram app and request the game or share the game link in any Telegram chat/group.</li>
 </ul>
 <h1>About the author</h1>
-<div>I'm Giacomo Rotondo Cocco aka coccojack, student of University of Catania, and i made this project with love for the university subject 'WEB PROGRAMMING, DESIGN & USABILITY'</div>
+<div>I'm Giacomo Rotondo Cocco aka coccojack, student of University of Catania, and i made this project with love for the university subject 'WEB PROGRAMMING, DESIGN & USABILITY'.</div>
