@@ -48,11 +48,19 @@ function onAssetsLoaded() {
     //const gamehosturl = "http://...";
     const gamehosturl = url.origin; //change according to the game url, if the node server is the same url leave 'url.origin'
 
-    // Init
+    //Init
     //canvas options
-    var app = new PIXI.Application(window.innerWidth, window.innerHeight, { backgroundColor: 0x111111 });
-    var centerX = app.renderer.width / 2;
-    var centerY = app.renderer.height / 2;
+    var app = new PIXI.Application(window.innerWidth, window.innerHeight, {
+        backgroundColor: 0x111111,
+
+        autoDensity: true,
+        antialias: true
+    });
+    //if (window.innerHeight < window.innerWidth) app.stage.scale.set(window.innerHeight / window.innerWidth);
+    //else app.stage.scale.set(window.innerWidth / window.innerHeight);
+    var centerX = app.renderer.screen.width / 2;
+    var centerY = app.renderer.screen.height / 2;
+
     //squares positions
     var positions = [];
     var randomPos;
@@ -75,7 +83,8 @@ function onAssetsLoaded() {
     gameOverText.y = centerY * 0.5;
     //setup for title
     const gameTitle = new PIXI.Text('STROOP COLOR GAME', titleStyle);
-    var titleInitialX = gameTitle.x = centerX - (gameTitle.width / 2);
+    gameTitle.anchor.set(0.5, 0);
+    var titleInitialX = gameTitle.x = centerX;
     var titleInitialY = gameTitle.y = centerY * 0.2;
     //titleanimation (initialX not used but stored, may be useful)  
     var direction = { 'x': 1, 'y': 1 }
@@ -240,7 +249,7 @@ function onAssetsLoaded() {
         colorWord.anchor.set(0.5);
         app.stage.addChild(colorWord);
 
-        positions = generateGridArray(app.renderer.width, app.renderer.height);
+        positions = generateGridArray(app.renderer.screen.width, app.renderer.screen.height);
         sprites = buildSprites(colors[random_color].color);
 
         //Draw squares
