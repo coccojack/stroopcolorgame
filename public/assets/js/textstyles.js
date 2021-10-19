@@ -30,7 +30,7 @@ var rainbowStyle = new PIXI.TextStyle({
 });
 var titleStyle = new PIXI.TextStyle({
     fontFamily: 'Gluten',
-    fontSize: 60,
+    fontSize: 50,
     fontWeight: 'bold',
     fill: ['#8648A3', '#25AEE4', '#53DD3B', '#FFEB11', '#FF7B20', '#FE1416'], // rainbow gradient
     stroke: 'black',
@@ -81,7 +81,7 @@ var scoreStyle = new PIXI.TextStyle({
 
 var buttonStyle = new PIXI.TextStyle({
     fontFamily: 'Gluten',
-    fontSize: 50,
+    fontSize: 40,
     stroke: 'black',
     strokeThickness: 20,
     fill: 'white',
@@ -122,7 +122,7 @@ var gameWordStyleWhite = new PIXI.TextStyle({
 
 var linkStyle = new PIXI.TextStyle({
     fontFamily: 'Gluten',
-    fontSize: 40,
+    fontSize: 30,
     stroke: 'black',
     strokeThickness: 8,
     fill: 'white',
