@@ -52,12 +52,10 @@ function onAssetsLoaded() {
     //canvas options
     var app = new PIXI.Application(window.innerWidth, window.innerHeight, {
         backgroundColor: 0x111111,
-
         autoDensity: true,
         antialias: true
     });
-    //if (window.innerHeight < window.innerWidth) app.stage.scale.set(window.innerHeight / window.innerWidth);
-    //else app.stage.scale.set(window.innerWidth / window.innerHeight);
+
     var centerX = app.renderer.screen.width / 2;
     var centerY = app.renderer.screen.height / 2;
 
@@ -82,7 +80,7 @@ function onAssetsLoaded() {
     gameOverText.x = centerX - (gameOverText.width / 2);
     gameOverText.y = centerY * 0.5;
     //setup for title
-    const gameTitle = new PIXI.Text('STROOP COLOR GAME', titleStyle);
+    const gameTitle = new PIXI.Text('    STROOP\nCOLOR GAME', titleStyle);
     gameTitle.anchor.set(0.5, 0);
     var titleInitialX = gameTitle.x = centerX;
     var titleInitialY = gameTitle.y = centerY * 0.2;

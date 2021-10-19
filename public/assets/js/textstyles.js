@@ -122,7 +122,7 @@ var gameWordStyleWhite = new PIXI.TextStyle({
 
 var linkStyle = new PIXI.TextStyle({
     fontFamily: 'Gluten',
-    fontSize: 50,
+    fontSize: 40,
     stroke: 'black',
     strokeThickness: 8,
     fill: 'white',
