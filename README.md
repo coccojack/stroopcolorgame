@@ -31,5 +31,7 @@
     <li>A message in the CLI will appear notifying that server is running.</li>
     <li>Open your telegram bot via telegram app and request the game or share the game link in any Telegram chat/group.</li>
 </ul>
-<h1>About the author</h1>
-<div>I'm Giacomo Rotondo Cocco aka coccojack, student of University of Catania, and i made this project with love for the university subject 'WEB PROGRAMMING, DESIGN & USABILITY'.</div>
+<h1>TO-DO</h1>
+<ul>
+    <li>Fix bugs about game resolution on different browser scales and devices</li>
+</ul>
