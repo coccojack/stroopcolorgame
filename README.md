@@ -1,4 +1,5 @@
 <h1>Stroop Color Game</h1>
+<img src="https://github.com/coccojack/stroopcolorgame/blob/master/bot_overview.png">
 <div>Stroop Color Game is a HTML5 game developed with PIXI.js</div>
 <div>The game is simple: you have to choose a color from the game stage according to the color's name that appears.</div>
 <div>The time to pick the color decreases each level, unleashing in the player the Stroop Effect.</div>
@@ -35,3 +36,4 @@
 <ul>
     <li>Fix bugs about game resolution on different browser scales and devices</li>
 </ul>
+<img src="https://github.com/coccojack/stroopcolorgame/blob/master/bugs.jpg">
